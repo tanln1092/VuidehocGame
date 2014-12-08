@@ -10,10 +10,10 @@ public class AnswerLabel1 : MonoBehaviour {
 	// Set style for text label
 	public Texture2D[] answerLabel;
 
-	public UISprite plusSprite_1;
-	public UISprite minusSprite_1;
-	public UISprite multiSprite_1;
-	public UISprite divideSprite_1;
+//	public UISprite plusSprite_1;
+//	public UISprite minusSprite_1;
+//	public UISprite multiSprite_1;
+//	public UISprite divideSprite_1;
 
 	// Use this to save answer
 	string answerString = null;
@@ -28,10 +28,10 @@ public class AnswerLabel1 : MonoBehaviour {
 			count ++;
 		}while(count < 10);
 
-		plusSprite_1.fillAmount = 0;
-		minusSprite_1.fillAmount = 0;
-		multiSprite_1.fillAmount = 0;
-		divideSprite_1.fillAmount = 0;
+//		plusSprite_1.fillAmount = 0;
+//		minusSprite_1.fillAmount = 0;
+//		multiSprite_1.fillAmount = 0;
+//		divideSprite_1.fillAmount = 0;
 	}
 	
 	// Update is called once per frame

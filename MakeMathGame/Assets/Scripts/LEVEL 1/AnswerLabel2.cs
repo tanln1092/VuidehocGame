@@ -9,16 +9,13 @@ public class AnswerLabel2 : MonoBehaviour {
 	// Set style for text label
 	public Texture[] answerLabel;
 
-	public UISprite plusSprite_1;
-	public UISprite minusSprite_1;
-	public UISprite multiSprite_1;
-	public UISprite divideSprite_1;
+//	public UISprite plusSprite_1;
+//	public UISprite minusSprite_1;
+//	public UISprite multiSprite_1;
+//	public UISprite divideSprite_1;
 
 	void Start(){
-		plusSprite_1.fillAmount = 0;
-		minusSprite_1.fillAmount = 0;
-		multiSprite_1.fillAmount = 0;
-		divideSprite_1.fillAmount = 0;
+	
 	}
 	void OnGUI(){
 		if (Program.isClicked == true && QuestionLabel.questionIndex < 10  && !Program.isPause) {
@@ -39,24 +36,27 @@ public class AnswerLabel2 : MonoBehaviour {
 			}else if(answerString.Equals("-")){
 				GUI.DrawTexture (new Rect (gameObject.transform.position.x + (Screen.width*0.6030341f),
 				                           gameObject.transform.position.y + Screen.height*0.7815126f, 50, 50), answerLabel[1]);
-//				plusSprite_1.fillAmount = 0;
 //				minusSprite_1.fillAmount = 1;
+//
+//				plusSprite_1.fillAmount = 0;
 //				multiSprite_1.fillAmount = 0;
 //				divideSprite_1.fillAmount = 0;
 			}else if(answerString.Equals("*")){
 				GUI.DrawTexture (new Rect (gameObject.transform.position.x + (Screen.width*0.6030341f),
 				                           gameObject.transform.position.y + Screen.height*0.7815126f, 50, 50), answerLabel[2]);
+//				multiSprite_1.fillAmount = 1;
+//
 //				plusSprite_1.fillAmount = 0;
 //				minusSprite_1.fillAmount = 0;
-//				multiSprite_1.fillAmount = 1;
 //				divideSprite_1.fillAmount = 0;
 			}else{
 				GUI.DrawTexture (new Rect (gameObject.transform.position.x + Screen.width*0.6030341f,
 				                           gameObject.transform.position.y + Screen.height*0.7815126f, 50, 50), answerLabel[3]);
+//				divideSprite_1.fillAmount = 1;
+//
 //				plusSprite_1.fillAmount = 0;
 //				minusSprite_1.fillAmount = 0;
 //				multiSprite_1.fillAmount = 0;
-//				divideSprite_1.fillAmount = 1;
 			}
 		
 		}

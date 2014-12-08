@@ -45,13 +45,16 @@ public class QuestionLabel : MonoBehaviour {
 	public float timer = 30;
 
 	// Set style for text label
-	public GUIStyle questionLabel;
+//	public GUIStyle questionLabel;
 
 	// Set style for info text label
 	public GUIStyle infoLabel;
 
+	public UILabel questLabel;
+
 	// Resolve operation conflict
 	int conflictIndex = -1;
+	float fAfterTimer;
 
 	// Use this for initialization
 	void Start () {
@@ -69,32 +72,39 @@ public class QuestionLabel : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-
+		if (Program.isClicked == false) {
+			fAfterTimer = Time.timeSinceLevelLoad;	
+		}
 	}
 
 	void OnGUI(){
+
+
 		if (Program.isClicked == true && questionIndex < 10 && !Program.isPause) {
 			// Use this count remain time
-			if(Program.isStop == false)
-				Program.playTime = Time.timeSinceLevelLoad; 
-			else
-			Program.playTime = Mathf.Round(Program.playTime * 100)/100f;
+			if(Program.isStop == false){
+				questLabel.text = calculatorList[questionIndex].getQuestionString();
+				Program.playTime = Time.timeSinceLevelLoad - fAfterTimer; 
+
+			}
+			else{
+				Program.playTime = Mathf.Round(Program.playTime * 100)/100f;
+				questLabel.text = "";
+
+			}
 
 			// Use this load question
-			GUI.Button(new Rect(gameObject.transform.position.x + Screen.width * 0.3982301f, 
-			                    gameObject.transform.position.y + Screen.height * 0.1540616f,
-			                    50,
-			                    50),
-			           			calculatorList[questionIndex].getQuestionString(), questionLabel)	;
-		}
-		if(Program.isPause){
-			// Use this load question
-//			GUI.Button(new Rect(gameObject.transform.position.x + Screen.width * 0.36f, 
-//			                    gameObject.transform.position.y + Screen.height * 0.1f,
+
+//			GUI.Button(new Rect(gameObject.transform.position.x + Screen.width * 0.3982301f, 
+//			                    gameObject.transform.position.y + Screen.height * 0.1540616f,
 //			                    50,
 //			                    50),
-//			           "Bạn hãy chọn những phép tính :\n\t\t\t\t+ , - , * , /\n\t\t\t\tđể điền vào \n\tchỗ trống của biểu thức!\n\tChúc bạn may mắn OOO", 
-//			           infoLabel)	;
+//			           			calculatorList[questionIndex].getQuestionString(), questionLabel)	;
+		}else
+			questLabel.text = "";
+
+		if(Program.isPause){
+			questLabel.text = "";
 		}
 	}
 

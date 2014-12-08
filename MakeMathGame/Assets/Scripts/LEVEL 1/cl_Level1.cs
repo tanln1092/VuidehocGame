@@ -179,7 +179,6 @@ public class cl_Level1 : MonoBehaviour {
 					Program.starNumber = 3;
 					break;
 			}
-			Debug.Log("save: " + cl_DataManager.bRequestSaveGameSuccess + " /unclock " + cl_DataManager.bRequestUnclockLevelSuccess);
 
 		if(Program.score > 7){
 			if(Program.starNumber >= Program.levelList[0].StarNumber){
@@ -198,14 +197,20 @@ public class cl_Level1 : MonoBehaviour {
 						StartCoroutine (cl_DataManager.unclockLevel (Program.userId, Program.gameLevel + 1));
 					}
 				}
-
-				if(cl_DataManager.bRequestUnclockLevelSuccess){
+					if(cl_DataManager.bRequestUnclockLevelSuccess){
 						iTween.MoveTo(objList[26],iTween.Hash("y", -0.35,
 						                                      "speed", 10));
 						iTween.MoveTo(objList[27],iTween.Hash("y", -0.35,
 						                                      "speed", 10));
-				}
+					}
+			}else{
+				iTween.MoveTo(objList[26],iTween.Hash("y", -0.35,
+					                                      "speed", 10));
+				iTween.MoveTo(objList[27],iTween.Hash("y", -0.35,
+					                                      "speed", 10));
 			}
+				
+				
 		}else{
 				iTween.MoveTo(objList[26],iTween.Hash("y", -0.35,
 				                                      "speed", 10));

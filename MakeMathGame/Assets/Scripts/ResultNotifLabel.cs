@@ -16,7 +16,7 @@ public class ResultNotifLabel : MonoBehaviour {
 
 			}
 			correctNotifLabel.text = Program.score + "/10 câu";
-			timeNotifLabel.text = Program.playTime + " giây";
+			timeNotifLabel.text = (int)Program.playTime + " giây";
 
 
 		}else{
