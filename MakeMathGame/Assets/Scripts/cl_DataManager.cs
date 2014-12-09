@@ -28,6 +28,9 @@ public class cl_DataManager : MonoBehaviour {
 
 	public static int 	iRandomNumber = 1;
 
+	public static List<cl_StructureManager.cl_User> userList;
+	public static cl_StructureManager.cl_User user;
+
 	#region MAIN UNITY MONO FUNCTION
 	void Start()
 	{
@@ -54,6 +57,10 @@ public class cl_DataManager : MonoBehaviour {
 					int iqScore = int.Parse(jsonData["score"].ToString());
 					int moneyNumber = int.Parse(jsonData["coin"].ToString());
 					int id = int.Parse(jsonData["id"].ToString());
+					string username 	= jsonData["username"].ToString();
+					string password 	= jsonData["password"].ToString();
+					
+					user = new cl_StructureManager.cl_User(id, username, password, iqScore, moneyNumber);
 
 					Program.IQTotal = iqScore;
 					Program.MoneyTotal = moneyNumber;
@@ -64,6 +71,57 @@ public class cl_DataManager : MonoBehaviour {
 				}
 
 
+	}
+	#endregion
+
+	#region GET ALL USERS INFOMATION FROM SERVER 
+	public static IEnumerator getAllUser(){
+
+		List<cl_StructureManager.cl_User> userSortList = new List<cl_StructureManager.cl_User> ();
+		userList = new List<cl_StructureManager.cl_User> ();
+
+		string sWebUrl = SERVER_URL + GET_USER_INFO_URL;
+		WWW www = new WWW(sWebUrl);
+		
+		//Load the data and yield (wait) till it's ready before we continue executing the rest of this method.
+		yield return www;
+		if (www.error == null){
+			//Sucessfully loaded the JSON string
+//			Debug.Log("Loaded following JSON string" + www.data);
+			
+			//Process user found in JSON file
+			JsonData jsonData = JsonMapper.ToObject(www.data);
+
+			for(int i = 0; i < jsonData.Count; i++){
+				int id 				= int.Parse(jsonData[i]["id"].ToString());
+				string username 	= jsonData[i]["username"].ToString();
+				string password 	= jsonData[i]["password"].ToString();
+				int iqScore 		= int.Parse(jsonData[i]["score"].ToString());
+				int moneyNumber		= int.Parse(jsonData[i]["coin"].ToString());
+
+				cl_StructureManager.cl_User user = new cl_StructureManager.cl_User(id, username, password, iqScore, moneyNumber);
+				userSortList.Add(user);
+			}
+
+
+		}
+		else{
+			Debug.Log("ERROR: " + www.error);
+		}
+
+		if (www.isDone) {
+			for(int i = 0; i < userSortList.Count - 1; i++)
+			for(int j = i + 1; j < userSortList.Count; j++){
+				if (userSortList[i].IqScore < userSortList[j].IqScore)
+				{
+					cl_StructureManager.cl_User temp = userSortList[i];
+					userSortList[i] = userSortList[j];
+					userSortList[j] = temp;
+				}
+			}
+			userList = userSortList;
+		}
+		
 	}
 	#endregion
 

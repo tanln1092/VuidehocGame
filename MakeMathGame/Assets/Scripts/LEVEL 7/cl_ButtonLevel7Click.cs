@@ -55,6 +55,20 @@ public class cl_ButtonLevel7Click : MonoBehaviour {
 		case "infomation_button":	
 			cl_Level7.Instance7.onInfomationButtonFunction ();
 			break;
+		case "leaderboard_button":	
+			Program.isResultNotif = false;
+			Program.isClicked = false;
+			
+			Program.isStop = false;
+			//Program.isReset = true;
+			QuestionLabel.questionIndex = 0;
+			Program.maxQuest = 0;
+			Program.score = 0;
+			ProgressTimeBar.timeProgress = 0;
+			cl_AppManager.levelNameCachedArray.Add(Application.loadedLevelName);
+			Debug.Log(Application.loadedLevelName);
+			Application.LoadLevel("Leaderboard");
+			break;
 		case "close_button":
 			Application.Quit();
 			break;

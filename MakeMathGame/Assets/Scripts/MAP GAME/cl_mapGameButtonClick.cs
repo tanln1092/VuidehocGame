@@ -5,7 +5,10 @@ public class cl_mapGameButtonClick : MonoBehaviour {
 
 	void OnClick () {
 		string buttonName = gameObject.name;
-		btn_clicked_event.InstanceMap.onButtonClick (buttonName);
+		if (buttonName.Equals ("close_button")) {
+			Application.LoadLevel("Log in");
+		}else
+			btn_clicked_event.InstanceMap.onButtonClick (buttonName);
 
 	}
 }

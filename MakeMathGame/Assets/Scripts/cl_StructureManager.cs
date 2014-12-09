@@ -275,6 +275,14 @@ public class cl_StructureManager : MonoBehaviour {
 		}
 
 		public cl_User(int id, string username,
+		               int iqScore, int moneyNumber){
+			this.id = id;
+			this.username = username;
+			this.iqScore = iqScore;
+			this.moneyNumber = moneyNumber;
+		}
+
+		public cl_User(int id, string username,
 		               string password, int iqScore, int moneyNumber){
 			this.id = id;
 			this.username = username;

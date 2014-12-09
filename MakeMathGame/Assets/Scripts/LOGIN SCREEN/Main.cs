@@ -102,9 +102,27 @@ public class Main : MonoBehaviour {
 	}
 
 	public void onResisterButtonClick (){
-		Debug.Log ("run");
-		StartCoroutine(cl_DataManager.registerUser(usernameTextField, passwordTextField));
-		isLogin = true;
+
+		if (usernameTextField.Trim ().Length != 0 && passwordTextField.Trim ().Length != 0) {
+			if(usernameTextField.Trim ().Length > 6){
+				isPaused = true;
+				notifContentLabel.text = "\nTên tài khoản\nkhông được quá \n6 ký tự ";
+				iTween.MoveTo(objList[3], iTween.Hash(
+					"y", 0.4
+					));
+			}else{
+				StartCoroutine(cl_DataManager.registerUser(usernameTextField, passwordTextField));
+				isLogin = true;	
+			}
+
+		}else{
+			isPaused = true;
+			notifContentLabel.text = "Vui lòng điền đầy đủ\nthông tin";
+			iTween.MoveTo(objList[3], iTween.Hash(
+				"y", 0.4
+				));
+		}
+
 	}
 	public void onCloseNotifMenuButtonClick (){
 		iTween.MoveTo(objList[3], iTween.Hash(

@@ -21,6 +21,9 @@ public class cl_buttonClick : MonoBehaviour {
 		case "register_button":
 			Main.Instance.onResisterButtonClick ();
 			break;
+		case "close_button":
+			Application.Quit();
+			break;
 		}
 
 	}

@@ -150,6 +150,8 @@
      <Compile Include="Assets\Scripts\Facebook SDK\Util.cs" />
      <Compile Include="Assets\Scripts\Facebook SDK\cl_FacebookPlugin.cs" />
      <Compile Include="Assets\Scripts\Facebook SDK\cl_SetProfileFBImage.cs" />
+     <Compile Include="Assets\Scripts\LEADER BOARD\cl_LeaderBoard.cs" />
+     <Compile Include="Assets\Scripts\LEADER BOARD\cl_LeaderboardButtonClick.cs" />
      <Compile Include="Assets\Scripts\LEVEL 1\AnswerLabel1.cs" />
      <Compile Include="Assets\Scripts\LEVEL 1\AnswerLabel2.cs" />
      <Compile Include="Assets\Scripts\LEVEL 1\QuestionLabel.cs" />
@@ -180,6 +182,7 @@
      <Compile Include="Assets\Scripts\Program.cs" />
      <Compile Include="Assets\Scripts\ProgressTimeBar.cs" />
      <Compile Include="Assets\Scripts\ResultNotifLabel.cs" />
+     <Compile Include="Assets\Scripts\cl_AppManager.cs" />
      <Compile Include="Assets\Scripts\cl_DataManager.cs" />
      <Compile Include="Assets\Scripts\cl_StructureManager.cs" />
      <Compile Include="Assets\UFTAtlasEditor\Resources\Scripts\Core\Atlas\UFTAtlasMetadata.cs" />

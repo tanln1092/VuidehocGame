@@ -10,6 +10,9 @@ public class btn_clicked_event : MonoBehaviour {
 	public GameObject[] starObjectList;
 	public UISprite[] starSpriteList;
 
+	public GameObject[] lockCategoryObjectList;
+	public GameObject[] unlockCategoryObjectList;
+
 	private static List<Program.cl_ObjectPosition> ObjectPositionList;
 
 	// Use this to turn on sound
@@ -64,6 +67,7 @@ public class btn_clicked_event : MonoBehaviour {
 			if (cl_DataManager.bRequestGetUserInfoSuccess) {
 				iLoadedLevelSuccess = 1;
 				cl_DataManager.bRequestGetUserInfoSuccess = false;
+
 				LoadingSuccessLevel (buttonObjectList, starObjectList);
 			}
 					
@@ -100,8 +104,17 @@ public class btn_clicked_event : MonoBehaviour {
 	}
 	public void LoadingSuccessLevel(GameObject[] buttonObj, GameObject[] starObj){
 
+		// Use this unlock completed categories
+		int surplus = Program.levelAllList.Count/6;
+		for(int i = 0; i < surplus; i++){
+			if(Program.levelList.Count >= 6*i){
+				iTween.MoveTo (unlockCategoryObjectList[i], iTween.Hash ("z", -2));
+				iTween.MoveTo (lockCategoryObjectList[i], iTween.Hash ("z", 2));
+			}
+		}
+
+		// Use this unlock completed level
 		for (int index = 0; index < Program.levelList.Count; index++) {
-			Debug.Log("load level");
 					iTween.MoveTo (buttonObj[index], iTween.Hash ("x", ObjectPositionList [index].X,
 					                                              "y", ObjectPositionList [index].Y,
 					                                              "z", ObjectPositionList [index].Z,

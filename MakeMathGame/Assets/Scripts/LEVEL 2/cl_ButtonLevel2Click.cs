@@ -57,6 +57,11 @@ public class cl_ButtonLevel2Click : MonoBehaviour {
 		case "infomation_button":	
 			cl_Level2.Instance2.onInfomationButtonFunction ();
 			break;
+		case "leaderboard_button":	
+			cl_AppManager.levelNameCachedArray.Add(Application.loadedLevelName);
+			Debug.Log(Application.loadedLevelName);
+			Application.LoadLevel("Leaderboard");
+			break;
 		case "close_button":
 			Application.Quit();
 			break;
