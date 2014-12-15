@@ -227,7 +227,7 @@ public class cl_FacebookPlugin : MonoBehaviour{
 
 	}
 
-	public void ShareMessageWithLinkAndImage(string message, string imageUrl, Action<string> callback){
+	public void ShareMessageWithLinkAndImage(string message, string imageUrl, Action<string> callback, string gameLink){
 		_postData = new PostData (message, imageUrl, callback);
 		if (!IsSessionValid ()) {
 		
@@ -240,7 +240,7 @@ public class cl_FacebookPlugin : MonoBehaviour{
 			});
 			return;
 		}
-		FB.Feed(linkName: message, picture: imageUrl, link:"GameLink", callback:PostResponse);
+		FB.Feed(linkName: message, picture: imageUrl, link:gameLink, callback:PostResponse);
 	}
 
 	private void PostResponse(FBResult response){

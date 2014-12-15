@@ -41,12 +41,12 @@ public class FacebookGUI : MonoBehaviour {
 			}
 		}
 		if(GUI.Button(new Rect(Screen.width/2 + 200,0, 100, 100), "Share on Facebook"))
-			FBPlugin.ShareMessageWithGameLink("Hello world!", ShareCallback);
+//			FBPlugin.ShareMessageWithGameLink("Hello world!", ShareCallback);
+			FBPlugin.ShareMessageWithLinkAndImage ("Hello world!", "http://icons.iconarchive.com/icons/designbolts/handstitch-social/256/Share-icon.png", ShareCallback, "http://vuidehoc.zz.mu/assets/VuiDeHoc_v1.0.8/VuiDeHoc_v1.0.8.html");
 		GUI.Label (new Rect (Screen.width / 2 - 100, 0, 100, 100), userName);
 
 		if(GUI.Button(new Rect(Screen.width/2 , 200, 100, 100), "Invite friend"))
 			onChallengeClicked();
-		Debug.Log ("User id: " + userId);
 	}
 
 	private void InitializeCallback(bool isSuccess){

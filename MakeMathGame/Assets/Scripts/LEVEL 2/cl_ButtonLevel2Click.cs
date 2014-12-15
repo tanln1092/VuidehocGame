@@ -58,6 +58,15 @@ public class cl_ButtonLevel2Click : MonoBehaviour {
 			cl_Level2.Instance2.onInfomationButtonFunction ();
 			break;
 		case "leaderboard_button":	
+			Program.isResultNotif = false;
+			Program.isClicked = false;
+			
+			Program.isStop = false;
+			//Program.isReset = true;
+			QuestionLabel.questionIndex = 0;
+			Program.maxQuest = 0;
+			Program.score = 0;
+			ProgressTimeBar.timeProgress = 0;
 			cl_AppManager.levelNameCachedArray.Add(Application.loadedLevelName);
 			Debug.Log(Application.loadedLevelName);
 			Application.LoadLevel("Leaderboard");
