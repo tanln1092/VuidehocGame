@@ -29,6 +29,12 @@ public class Answer1 : MonoBehaviour {
 			}
 		}
 
+		if(Program.isStop == true){
+			for(int i = 0; i < cl_Level7.AnswerInQuiz.Count; i++){
+				answerUILabel[i].text = "";
+			}
+		}
+
 		
 	}
 }

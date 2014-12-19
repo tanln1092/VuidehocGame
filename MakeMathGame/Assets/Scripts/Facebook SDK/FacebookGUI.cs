@@ -9,8 +9,16 @@ public class FacebookGUI : MonoBehaviour {
 
 	public static FacebookGUI instance;
 	public cl_FacebookPlugin FBPlugin;
-	private bool _isInitialized;
-	private bool _isLoggedIn;
+	public static bool _isInitialized;
+	public static bool _isLoggedIn;
+
+	private int SHARE_FB = 1;
+	private int INVITE_FB = 2;
+
+	private int FB_FUNCTION = 0;
+
+	string GAME_URL 		= "http://vuidehoc.zz.mu/assets/VuiDeHoc_v1.0.8/VuiDeHoc_v1.0.8/VuiDeHoc_v1.0.8.html";
+	string GAME_ICON_URL 	= "http://icons.iconarchive.com/icons/elegantthemes/beautiful-flat/128/calculator-icon.png";
 //	public UserDislay userDisplay;
 	public string userId;
 	public string userName;
@@ -22,41 +30,118 @@ public class FacebookGUI : MonoBehaviour {
 		instance = this;
 		FBPlugin = new cl_FacebookPlugin ();
 
-
+//		if(!_isInitialized){
+//			FBPlugin.Init(InitializeCallback);
+//		}
 	}
 
-	void OnGUI(){
-		if(!_isInitialized){
-			if(GUI.Button(new Rect(Screen.width/2-100,0, 100, 100), "Init Facebook")){
-				FBPlugin.Init(InitializeCallback);
-			
-			}
-			return;
-		}
-		if (!_isLoggedIn) {
-			if(GUI.Button(new Rect(Screen.width/2,0, 100, 100), "Login  Facebook")){
+	void OnClick(){
+		string name = gameObject.name;
+		
+		switch (name) {
+			case "share_button":	
+
+//			StartCoroutine(TakeScreenshot());
+			if (!_isLoggedIn) {
+				FB_FUNCTION = SHARE_FB;
 				FBPlugin.LoginWithBothPermissions(LoginCallback);
-				FBPlugin.GetPhoto (instance.userId, callback);
+			}else{
+				FB_FUNCTION = SHARE_FB;
 
 			}
-		}
-		if(GUI.Button(new Rect(Screen.width/2 + 200,0, 100, 100), "Share on Facebook"))
-//			FBPlugin.ShareMessageWithGameLink("Hello world!", ShareCallback);
-			FBPlugin.ShareMessageWithLinkAndImage ("Hello world!", "http://icons.iconarchive.com/icons/designbolts/handstitch-social/256/Share-icon.png", ShareCallback, "http://vuidehoc.zz.mu/assets/VuiDeHoc_v1.0.8/VuiDeHoc_v1.0.8.html");
-		GUI.Label (new Rect (Screen.width / 2 - 100, 0, 100, 100), userName);
 
-		if(GUI.Button(new Rect(Screen.width/2 , 200, 100, 100), "Invite friend"))
-			onChallengeClicked();
+		
+				break;
+			
+			case "invite_button":	
+			if (!_isLoggedIn) {
+				FB_FUNCTION = INVITE_FB;
+				FBPlugin.LoginWithBothPermissions(LoginCallback);
+			}else{
+				FB_FUNCTION = INVITE_FB;
+				
+			}
+				break;
+	
+		}
 	}
+	void Update(){
+		if (_isLoggedIn && FB_FUNCTION == SHARE_FB) {
+			FB_FUNCTION = 0;
+			FBPlugin.ShareMessageWithLinkAndImage (userName + " đã đạt được " + Program.score + " điểm trong màn chơi " + Program.gameLevel + " của trò chơi Vui Để Học.", 
+			                                       GAME_ICON_URL, 
+			                                       ShareCallback, 
+			                                       GAME_URL);
+		}
+		if (_isLoggedIn && FB_FUNCTION == INVITE_FB) {
+			FB_FUNCTION = 0;
+			onChallengeClicked();
+		}
+	}
+	private IEnumerator TakeScreenshot()
+	{
+		yield return new WaitForEndOfFrame();
+		
+		var width = Screen.width;
+		var height = Screen.height;
+		var tex = new Texture2D(width, height, TextureFormat.RGB24, false);
+		// Read screen contents into the texture
+		tex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+		tex.Apply();
+		byte[] screenshot = tex.EncodeToPNG();
+		
+		var wwwForm = new WWWForm();
+		wwwForm.AddBinaryData("image", screenshot, "InteractiveConsole.png");
+		
+		FB.API("me/photos", Facebook.HttpMethod.POST, LogCallback, wwwForm);
+	}
+
+	void LogCallback(FBResult response)
+	{
+		var responseObject = Json.Deserialize(response.Text) as Dictionary<string, object>;
+		object cancelled;
+		if (responseObject.TryGetValue ("cancelled", out cancelled))
+		{
+			if( (bool)cancelled == true )
+			{
+				Util.Log("not publish");                                                                                  
+
+			}
+			else
+			{
+				Util.Log("publish");                                                                                  
+			}
+		}
+		else
+		{
+			Util.Log("publish");                                                                                  
+		}
+	}
+	
+
+//	void OnGUI(){
+//
+//		if (!_isLoggedIn) {
+//			if(GUI.Button(new Rect(Screen.width/2,0, 100, 100), "Login  Facebook")){
+//				FBPlugin.LoginWithBothPermissions(LoginCallback);
+//				FBPlugin.GetPhoto (instance.userId, callback);
+//
+//			}
+//		}
+//		if(GUI.Button(new Rect(Screen.width/2 + 200,0, 100, 100), "Share on Facebook"))
+////			FBPlugin.ShareMessageWithGameLink("Hello world!", ShareCallback);
+//		GUI.Label (new Rect (Screen.width / 2 - 100, 0, 100, 100), userName);
+//
+//		if(GUI.Button(new Rect(Screen.width/2 , 200, 100, 100), "Invite friend"))
+//			onChallengeClicked();
+//	}
 
 	private void InitializeCallback(bool isSuccess){
-		Debug.Log ("Initialize complete? :[" + isSuccess + "]");
 		_isInitialized = isSuccess;
 	}
 
 	private void LoginCallback(bool isSuccess){
-		Debug.Log ("Initialize complete? :[" + isSuccess + "]");
-		_isInitialized = isSuccess;
+		_isLoggedIn = isSuccess;
 
 	}
 
@@ -79,8 +164,8 @@ public class FacebookGUI : MonoBehaviour {
 //			callback:appRequestCallback
 //			);  
 		FB.AppRequest(
-						to: null,
-
+//			to: null,
+//			excludeIds : null,
 			message: "Come play this great game!", 
 			callback: appRequestCallback
 			);
@@ -99,8 +184,8 @@ public class FacebookGUI : MonoBehaviour {
 			}                                                                                                                      
 			else if (responseObject.TryGetValue ("request", out obj))                                                              
 			{                
-				//				AddPopupMessage("Request Sent", ChallengeDisplayTime);
-				Util.Log("Request sent");                                                                                       
+//								AddPopupMessage("Request Sent", ChallengeDisplayTime);
+				Util.Log("Request sent" + result.Text);                                                                                       
 			}                                                                                                                      
 		}                                                                                                                          
 	}  

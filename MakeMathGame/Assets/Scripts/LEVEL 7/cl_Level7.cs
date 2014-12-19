@@ -270,11 +270,15 @@ public class cl_Level7 : MonoBehaviour {
 					if(cl_DataManager.bRequestUnclockLevelSuccess || isExistedLevel){
 
 						iTween.MoveTo(mainObjectList[3], iTween.Hash(
-							"y", -0.4
+							"y", -0.3
 							));
 						iTween.MoveTo(mainObjectList[4], iTween.Hash(
-							"y", -0.4
+							"y", -0.3
 							));
+						iTween.MoveTo(mainObjectList[17],iTween.Hash("y", -0.65,
+						                                      "speed", 10));
+						iTween.MoveTo(mainObjectList[18],iTween.Hash("y", -0.65,
+						                                      "speed", 10));
 					}
 
 
@@ -309,8 +313,12 @@ public class cl_Level7 : MonoBehaviour {
 						"y", 0.3
 						));
 					iTween.MoveTo(mainObjectList[4], iTween.Hash(
-						"y", -0.4
+						"y", -0.3
 						));
+					iTween.MoveTo(mainObjectList[17],iTween.Hash("y", -0.65,
+					                                             "speed", 10));
+					iTween.MoveTo(mainObjectList[18],iTween.Hash("y", -0.65,
+					                                             "speed", 10));
 				}
 				reset();
 				

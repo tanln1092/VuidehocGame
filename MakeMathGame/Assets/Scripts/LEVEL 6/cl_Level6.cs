@@ -202,15 +202,27 @@ public class cl_Level6 : MonoBehaviour {
 						                                      "speed", 10));
 						iTween.MoveTo(objList[27],iTween.Hash("y", -0.35,
 						                                      "speed", 10));
+						iTween.MoveTo(objList[39],iTween.Hash("y", -0.7,
+						                                      "speed", 10));
+						iTween.MoveTo(objList[40],iTween.Hash("y", -0.7,
+						                                      "speed", 10));
 					}
 				}else{
 					iTween.MoveTo(objList[26],iTween.Hash("y", -0.35,
 					                                      "speed", 10));
 					iTween.MoveTo(objList[27],iTween.Hash("y", -0.35,
 					                                      "speed", 10));
+					iTween.MoveTo(objList[39],iTween.Hash("y", -0.7,
+					                                      "speed", 10));
+					iTween.MoveTo(objList[40],iTween.Hash("y", -0.7,
+					                                      "speed", 10));
 				}
 			}else{
 				iTween.MoveTo(objList[26],iTween.Hash("y", -0.35,
+				                                      "speed", 10));
+				iTween.MoveTo(objList[39],iTween.Hash("y", -0.7,
+				                                      "speed", 10));
+				iTween.MoveTo(objList[40],iTween.Hash("y", -0.7,
 				                                      "speed", 10));
 			}
 	}
